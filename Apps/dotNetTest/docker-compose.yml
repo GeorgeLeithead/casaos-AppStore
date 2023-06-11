@@ -1,0 +1,39 @@
+name: dotNetTest
+services:
+  webapp:
+    image: mcr.microsoft.com/dotnet/samples:aspnetapp
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
+      - target: 443
+        published: 443
+        protocol: tcp
+    restart: unless-stopped
+    environment:
+      TZ: $TZ
+    x-casaos:
+      envs:
+        - container: TZ
+          description:
+            en_us: specify a timezone to use, see this list.
+    volumes:
+      - ~/.aspnet/https:/https:ro
+x-casaos:
+  architectures:
+    - amd64
+    - arm
+    - arm64
+  main: app
+  description:
+    en_us: A test .NET CasaOS Container
+  tagline:
+    en_us: A test .NET CasaOS Container
+  developer: InternetWideWorld.com
+  author: GeorgeLeithead
+  icon: https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1Mu3b?ver=5c31
+  thumbnail: https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1Mu3b?ver=5c31
+  title:
+    en_us: dotNetTest
+  category: LinuxServer.io
+  port_map: '80'
