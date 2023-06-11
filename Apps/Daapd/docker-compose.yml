@@ -1,0 +1,45 @@
+name: LinuxServer-Daapd
+services:
+  app:
+    image: linuxserver/daapd:28.6.20230607
+    restart: unless-stopped
+    environment:
+      PUID: $PUID
+      PGID: $PGID
+      TZ: $TZ
+    x-casaos:
+      envs:
+        - container: PUID
+          description:
+            en_us: for UserID
+        - container: PGID
+          description:
+            en_us: for GroupID
+        - container: TZ
+          description:
+            en_us: specify a timezone to use, see this list.
+    volumes:
+      - type: bind
+        source: /DATA/AppData/daapd/config
+        target: /config
+      - type: bind
+        source: /DATA/AppData/daapd/music
+        target: /music
+x-casaos:
+  architectures:
+    - amd64
+    - arm
+    - arm64
+  main: app
+  description:
+    en_us: 'Visit homepage: https://hub.docker.com/r/linuxserver/daapd/'
+  tagline:
+    en_us: (itunes) Media Server With Support For Airplay Devices, Apple Remote (and Compatibles), Chromecast, Mpd And Internet Radio.
+  developer: LinuxServer.io
+  author: WisdomSky
+  icon: https://raw.githubusercontent.com/linuxserver/beta-templates/master/lsiodev/img/daapd-icon.png
+  thumbnail: https://raw.githubusercontent.com/linuxserver/beta-templates/master/lsiodev/img/daapd-git.png
+  title:
+    en_us: Daapd
+  category: LinuxServer.io
+  port_map: '3689'
